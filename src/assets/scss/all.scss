@@ -17,12 +17,58 @@
 @import 'bootstrap/scss/bootstrap';
 @import './reboot';
 
-body{
-    background: #000;
-    color: #fff;
-    height: 200vh;
-    line-height: 1.2;
+body {
+  background: #000;
+  color: #fff;
+  height: 200vh;
+  line-height: 1.2;
 }
-.ol{
-    outline: solid;
+.ol {
+  outline: solid;
+}
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+
+.mb-12 {
+  margin-bottom: 3rem;
+}
+
+.mb-md-25 {
+  margin-bottom: 6.25rem;
+}
+
+.mb-45 {
+  margin-bottom: 11.25rem;
+}
+
+.mb-40 {
+  margin-bottom: 25rem;
+}
+.mb-30 {
+  margin-bottom: 7.5rem;
+}
+
+.pt-24 {
+  padding-top: 6rem;
+}
+
+.py-20 {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+.py-30 {
+  padding-top: 7.5rem;
+  padding-bottom: 7.5rem;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.start-btn {
+  padding: 20px 40px;
+}
+.start-btn:hover {
+  color: #000;
 }

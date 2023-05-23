@@ -8,8 +8,10 @@
     </div>
     <div class="d-flex flex-wrap border-top py-8">
       <span class="order-md-1 me-25 mb-9 mb-md-0">AI工具王 © 2023</span>
-      <a class='ms-auto text-end order-md-2' href="#">Back to top <span>icon</span></a>    
-      <ul class="d-flex w100 gap-5 order-md-1">
+      <a class='ms-auto text-end order-md-2' href="#app">Back to top <span class="align-middle material-symbols-outlined">
+arrow_upward
+</span></a>    
+      <ul class="d-flex social gap-5 order-md-1">
         <li><a href="#">Facebook</a></li>
         <li><a href="#">Twitter</a></li>
         <li><a href="#">Instagram</a></li>
@@ -18,7 +20,6 @@
   </footer>
 </template>
 <style lang="scss">
-
     .py-8{
         padding-top: 2rem;
         padding-bottom: 2rem;
@@ -42,9 +43,8 @@
         }
     }
     @media screen and (max-width:576px){
-        .w100{
+        .social{
             width: 100%;
         }
     }
-        
 </style>

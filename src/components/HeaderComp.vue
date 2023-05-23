@@ -52,9 +52,7 @@ export default {
   height: 2.5rem;
   width: auto;
 }
-.pt-24 {
-  padding-top: 6rem;
-}
+
 .position-sticky {
   position: sticky;
   top: 0px;
@@ -69,7 +67,5 @@ export default {
 .menu-show {
   height: 80dvh;
 }
-.cursor-pointer {
-  cursor: pointer;
-}
+
 </style>
