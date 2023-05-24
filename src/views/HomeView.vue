@@ -5,6 +5,7 @@ import Banner from '../components/HomeBanner.vue'
 import Feature from '../components/FeatureComp.vue'
 import GetStart from '../components/GetStart.vue'
 import Partner from '../components/PartnerComp.vue'
+import Recommend from '../components/RecommendComp.vue'
 export default {
   components: {
     HeaderComp,
@@ -12,7 +13,8 @@ export default {
     FooterComp,
     Feature,
     GetStart,
-    Partner
+    Partner,
+    Recommend
   },
 }
 </script>
@@ -23,6 +25,7 @@ export default {
     <Banner></Banner>
     <Feature class="mb-30 mb-lg-40"></Feature>
     <Partner class="mb-12 mb-lg-40"></Partner>
+    <Recommend></Recommend>
     <GetStart></GetStart>
     <FooterComp></FooterComp>
   </div>

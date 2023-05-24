@@ -1,5 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&family=Paytone+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0');
 @import 'bootstrap/scss/functions';
 
 // 2. Include any default variable overrides here
@@ -22,6 +23,7 @@ body {
   color: #fff;
   height: 200vh;
   line-height: 1.2;
+  font-family: 'Noto Sans TC', sans-serif;
 }
 .ol {
   outline: solid;
@@ -64,6 +66,12 @@ body {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+@include media-breakpoint-up(lg) { 
+    .mb-lg-40{
+        margin-bottom: 10rem;
+    }
 }
 
 .start-btn {
