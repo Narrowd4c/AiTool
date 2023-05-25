@@ -4,6 +4,10 @@ export default {
     return {
       active: false,
       color: 'transparent',
+      text: '',
+      filterBtn: false,
+      order: '由新到舊',
+      orderBtn: false,
       aiToolList: [
         {
           name: 'Chatbot Builder',
@@ -60,8 +64,21 @@ export default {
     }
   },
   methods: {
-    blur() {
-      this.active = !this.active
+    focus() {
+      if (this.text.length === 0) {
+        this.active = !this.active
+      }
+    }
+  },
+  computed: {
+    moduleList() {
+      let types = new Set(this.aiToolList.map((x) => x.moduleName))
+      return ['所有類型', ...Array.from(types)]
+    },
+    typeList() {
+      let result = [...this.aiToolType]
+      result[0] = '所有類型'
+      return result
     }
   }
 }
@@ -73,34 +90,77 @@ export default {
       <h2 class="fw-bold display-2 text-center mb-8">這些超酷的應用，都來自 AI工具王</h2>
       <div class="position-relative mb-10">
         <label
-          :class="{ focu: active }"
-          for=""
+          :class="{ search: active }"
+          for="search"
           class="fs-5 w-100 h-100 bg-gray top-0 left-0 rounded-4 text-muted position-absolute py-5 px-10"
           ><span :class="{ 'fs-6': active }" class="me-4 align-top material-symbols-outlined">
             search </span
           >輸入關鍵字搜尋</label
         >
         <input
-          @focus="active = !active"
-          @blur="blur"
-          :class="{ color: 'active' }"
+          id="search"
+          @focus="focus"
+          @blur="focus"
+          v-model="text"
           class="border-0 bg-gray w-100 rounded-4 ps-10 pt-5"
           type="text"
-          placeholder=""
         />
       </div>
       <div class="d-flex flex-wrap justify-content-lg-between align-items-center mb-12">
-        <button type="button" class="btn-filter lh-sm">
-          篩選<span class="align-text-bottom ms-3 text-black material-symbols-rounded"> tune </span>
-        </button>
-        <button type="button" class="order-lg-1 ms-auto m-lg-0 btn-filter">
-          由新到舊<span class="align-text-bottom ms-3 text-black material-symbols-rounded">
-            expand_more
-          </span>
-        </button>
+        <div class="position-relative">
+          <button @click="filterBtn = !filterBtn" type="button" class="btn-filter lh-sm">
+            篩選<span class="align-text-bottom ms-3 text-black material-symbols-rounded">
+              tune
+            </span>
+          </button>
+          <div
+            :class="{ 'd-none': !filterBtn }"
+            class="position-absolute rounded-4 shadow py-5 w-240px z-index-1 bg-white"
+          >
+            <h4 class="px-10 fs-6 text-muted mb-2">AI 模型</h4>
+            <ul class="mb-4">
+              <li
+                class="bg-gray-hover py-1 cursor-pointer"
+                v-for="(module, i) in moduleList"
+                :key="i + module"
+              >
+                <p class="px-10">{{ module }}</p>
+              </li>
+            </ul>
+            <ul class="border-top pt-4">
+              <h4 class="px-10 fs-6 text-muted mb-2">類型</h4>
+              <li class="bg-gray-hover py-1 cursor-pointer" v-for="v in typeList" :key="v">
+                <p class="px-10">{{ v }}</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="ms-auto m-lg-0 order-lg-1 position-relative">
+          <button @click="orderBtn = !orderBtn" type="button" class="btn-filter">
+            {{ order
+            }}<span class="align-text-bottom ms-3 text-black material-symbols-rounded">
+              expand_more
+            </span>
+          </button>
+          <div
+            :class="{ 'd-none': !orderBtn }"
+            class="position-absolute end-0 rounded-4 shadow py-5 w-144px z-index-1 bg-white"
+          >
+            <ul>
+              <li @click="order = '由新到舊'" class="cursor-pointer">
+                <p class="px-10 py-1">由新到舊</p>
+              </li>
+              <li @click="order = '由舊到新'" class="cursor-pointer">
+                <p class="px-10 py-1">由舊到新</p>
+              </li>
+            </ul>
+          </div>
+        </div>
         <ul class="mt-4 mt-lg-0 d-flex gap-2 overflow-auto">
           <li class="flex-shrink-0" v-for="value in aiToolType" :key="value">
-            <button :class="{ selected: false }" class="btn-types">{{ value }}</button>
+            <button :class="{ selected: false }" class="btn-types bg-gray-hover">
+              {{ value }}
+            </button>
           </li>
         </ul>
       </div>
@@ -133,8 +193,19 @@ export default {
         </li>
       </ul>
       <ul class="d-flex justify-content-end gap-1">
-        <li class="flex-shrink-0 square-12 hstack justify-content-center bg-black rounded-4" v-for="i in 5" :key="i"><a href="#">{{ i }}</a></li>
-        <li><a href="#"><span></span></a></li>
+        <li class="flex-shrink-0 rounded-4">
+          <a class="hstack justify-content-center rounded-4 square-12 bg-black" href="#">1</a>
+        </li>
+        <li class="flex-shrink-0 rounded-4" v-for="i in 4" :key="i">
+          <a class="hstack justify-content-center rounded-4 square-12 text-black" href="#">{{
+            i + 1
+          }}</a>
+        </li>
+        <li class="flex-shrink-0 rounded-4">
+          <a class="hstack justify-content-center rounded-4 square-12" href="#"
+            ><span class="text-black material-symbols-rounded"> chevron_right </span></a
+          >
+        </li>
       </ul>
     </div>
   </div>
@@ -146,14 +217,26 @@ export default {
   font-size: 2rem;
   line-height: 1.5;
 }
-.square-12{
-    width: 48px;
-    height: 48px;
+.square-12 {
+  width: 48px;
+  height: 48px;
 }
 .bg-gray {
   background: #f2f2f2;
 }
 
+.w-144px {
+  width: 144px;
+}
+.w-240px {
+  width: 240px;
+}
+.bg-gray-hover:hover {
+  background: #f2f2f2;
+}
+.z-index-1 {
+  z-index: 1;
+}
 .gap-y-6 {
   gap: 1.5rem 0px;
 }
@@ -172,7 +255,7 @@ label {
   pointer-events: none;
   transition: all 0.15s;
 }
-.focu {
+.search {
   font-size: 0.5rem !important;
   padding-top: 0px !important;
   padding-bottom: 0px !important;

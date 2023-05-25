@@ -35,6 +35,3 @@ export default {
     <FooterComp></FooterComp>
   </div>
 </template>
-
-<style>
-</style>
