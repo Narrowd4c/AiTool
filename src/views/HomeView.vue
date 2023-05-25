@@ -22,8 +22,8 @@ export default {
 </script>
 
 <template>
+  <HeaderComp></HeaderComp>
   <div class="container">
-    <HeaderComp></HeaderComp>
     <Banner></Banner>
     <Feature class="mb-30 mb-lg-40"></Feature>
     <Partner class="mb-12 mb-lg-40"></Partner>

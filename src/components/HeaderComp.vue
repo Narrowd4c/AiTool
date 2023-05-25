@@ -10,12 +10,13 @@ export default {
 
 <template>
   <header class="bg-black position-sticky">
+    <div class="container">
     <div class="px-3 py-5 border-bottom d-flex justify-content-between align-items-center">
       <div>
         <img
           class="logo"
           src="https://raw.githubusercontent.com/hexschool/2022-web-layout-training/main/2023web-camp/logo.png"
-          alt=""
+          alt="AiTool-logo"
         />
         <h1 class="visually-hidden">AI工具王</h1>
       </div>
@@ -27,9 +28,11 @@ export default {
         >menu</span
       >
     </div>
+    
+    </div>
     <ul
       :class="{ 'menu-show': isShow }"
-      class="bg-black menu-toggle d-flex align-center flex-column justify-content-between position-absolute top-100 text-center"
+      class="d-lg-none bg-black menu-toggle d-flex align-center flex-column justify-content-between position-absolute top-100 text-center"
     >
       <div class="h-100 grow-1 d-flex align-center flex-column justify-content-center">
         <RouterLink to="/" class="mb-5 display-1 fw-bolder">首頁</RouterLink>
@@ -37,7 +40,7 @@ export default {
       </div>
       <div class="fw-bolder pt-8 border-top">
         <p class="text-start">AI工具王 © 2023</p>
-        <ul class="d-flex mt-9 gap-5">
+        <ul class="d-flex mt-9 gap-5 mb-5">
           <li><a href="#">Facebook</a></li>
           <li><a href="#">Twitter</a></li>
           <li><a href="#">Instagram</a></li>
@@ -45,7 +48,6 @@ export default {
       </div>
     </ul>
   </header>
-  <slot name="banner"></slot>
 </template>
 <style lang="scss">
 .logo {
@@ -65,7 +67,7 @@ export default {
   overflow: hidden;
 }
 .menu-show {
-  height: 80dvh;
+  height: calc(100dvh - 81px);
 }
 
 </style>
