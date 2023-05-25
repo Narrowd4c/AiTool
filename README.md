@@ -1,6 +1,6 @@
 # ai-tool
 
-[page](https://narrowd4c.github.io/AiTool/#/)
+## [Page](https://narrowd4c.github.io/AiTool/#/)
 
 
 This template should help get you started developing with Vue 3 in Vite.
