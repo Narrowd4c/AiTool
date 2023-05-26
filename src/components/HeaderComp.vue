@@ -22,7 +22,7 @@ export default {
       </div>
       <nav class="d-none d-lg-block">
         <RouterLink to="/" class="me-5">首頁</RouterLink>
-        <RouterLink to="/about">定價</RouterLink>
+        <RouterLink to="/price">定價</RouterLink>
       </nav>
       <span @click="isShow = !isShow" class="d-lg-none cursor-pointer material-symbols-outlined"
         >menu</span

@@ -15,7 +15,14 @@ const router = createRouter({
       name: 'price',
       component: PriceView
     }
-  ]
+  ],
+  scrollBehavior() {
+    // return 期望滚动到哪个的位置
+    return {
+      top: 0,
+      behavior: 'smooth'
+    }
+  }
 })
 
 export default router
