@@ -23,27 +23,25 @@ export default {
 <template>
   <div>
     <h2 class="mb-6 mb-lg-20 fs-1 fw-bold">來自合作夥伴</h2>
-    <div class="overflow-hidden h40 gap-5 mb-5">
-      <ul class="d-flex justify-content-xl-center partner-list mask pb-5 px-10">
+    <div class="overflow-hidden h-40px mb-5">
+      <ul class="d-flex justify-content-xl-center partner-list pb-8 px-10 mb-10">
         <li class="" v-for="(img, index) in partnerList.slice(0, 6)" :key="index + img">
-          <img class="img" :src="img" :alt="`partner${index}`" />
+          <img class="partner-logo" :src="img" :alt="`partner${index}`" />
         </li>
       </ul>
     </div>
-    <div class="overflow-hidden h40 gap-5">
-      <ul
-        class="d-flex justify-content-xl-center partner-list mask pb-5 position-relative ps-2 pe-8"
-      >
-        <li class="" v-for="(img, index) in partnerList.slice(6, 12)" :key="index + img">
-          <img class="img" :src="img" :alt="`partner${index}`" />
+    <div class="overflow-hidden h-40px mb-5">
+      <ul class="d-flex justify-content-xl-center partner-list pb-8 ps-2 pe-8">
+        <li class="pt-1" v-for="(img, index) in partnerList.slice(6, 12)" :key="index + img">
+          <img class="partner-logo" :src="img" :alt="`partner${index}`" />
         </li>
       </ul>
     </div>
   </div>
 </template>
-<style>
-.h40 {
-  height: 40px;
+<style scoped>
+.h-40px {
+  height: 50px;
 }
 .partner-list {
   overflow-x: scroll;
@@ -51,7 +49,7 @@ export default {
   -webkit-mask: linear-gradient(90deg, transparent 2%, #000 10%, #000 70%, transparent);
   gap: 0px 1.25rem;
 }
-.img {
+.partner-logo {
   max-width: 160px;
 }
 </style>

@@ -90,9 +90,9 @@ export default {
       <h2 class="fw-bold display-2 text-center mb-8">這些超酷的應用，都來自 AI工具王</h2>
       <div class="position-relative mb-10">
         <label
-          :class="{ search: active }"
+          :class="{ 'ai-search-focus': active }"
           for="search"
-          class="fs-5 w-100 h-100 bg-gray top-0 left-0 rounded-4 text-muted position-absolute py-5 px-10"
+          class="ai-search fs-5 w-100 h-100 bg-gray top-0 left-0 rounded-4 text-muted position-absolute py-5 px-10"
           ><span :class="{ 'fs-6': active }" class="me-4 align-top material-symbols-outlined">
             search </span
           >輸入關鍵字搜尋</label
@@ -102,7 +102,7 @@ export default {
           @focus="focus"
           @blur="focus"
           v-model="text"
-          class="border-0 bg-gray w-100 rounded-4 ps-10 pt-5"
+          class="border-0 bg-gray w-100 rounded-4 ps-10 py-5"
           type="text"
         />
       </div>
@@ -158,7 +158,7 @@ export default {
         </div>
         <ul class="mt-4 mt-lg-0 d-flex gap-2 overflow-auto">
           <li class="flex-shrink-0" v-for="value in aiToolType" :key="value">
-            <button :class="{ selected: false }" class="btn-types bg-gray-hover">
+            <button class="btn-types bg-gray-hover">
               {{ value }}
             </button>
           </li>
@@ -213,16 +213,10 @@ export default {
 
 <style lang="scss" scoped>
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
-.fz-8 {
-  font-size: 2rem;
-  line-height: 1.5;
-}
+
 .square-12 {
   width: 48px;
   height: 48px;
-}
-.bg-gray {
-  background: #f2f2f2;
 }
 
 .w-144px {
@@ -231,37 +225,23 @@ export default {
 .w-240px {
   width: 240px;
 }
+
+.bg-gray {
+  background: #f2f2f2;
+}
 .bg-gray-hover:hover {
   background: #f2f2f2;
 }
-.z-index-1 {
-  z-index: 1;
-}
 
-a {
-  & .material-symbols-outlined {
-    font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 200, 'opsz' 48;
-  }
-}
-
-input {
-  height: 3.5rem;
-  line-height: 1.2;
-}
-label {
+.ai-search {
   pointer-events: none;
   transition: all 0.15s;
-}
-.search {
-  font-size: 0.5rem !important;
-  padding-top: 0px !important;
-  padding-bottom: 0px !important;
-  top: 8px !important;
-  height: 0px !important;
-}
-@media screen and (min-width: 992px) {
-  .fz-8 {
-    font-size: 5rem;
+  &-focus {
+    font-size: 0.5rem !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    top: 8px !important;
+    height: 0px !important;
   }
 }
 
@@ -284,20 +264,18 @@ label {
 }
 
 .btn-filter {
-  background: white;
+  background: rgb(255, 255, 255);
   border: 1px solid #f2f2f2;
   border-radius: 16px;
   padding: 20px;
   padding-left: 40px;
   padding-right: 32px;
 }
+
 .btn-types {
   background: #ffffff;
   border: 0;
   border-radius: 16px;
   padding: 8px 16px;
-}
-.selected {
-  background: #f2f2f2;
 }
 </style>
