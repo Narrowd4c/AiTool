@@ -35,8 +35,8 @@ export default {
       class="d-lg-none bg-black menu-toggle d-flex align-center flex-column justify-content-between position-absolute top-100 text-center"
     >
       <div class="h-100 grow-1 d-flex align-center flex-column justify-content-center">
-        <RouterLink to="/" class="mb-5 display-1 fw-bolder">首頁</RouterLink>
-        <RouterLink to="/about" class="display-1 fw-bolder">定價</RouterLink>
+        <RouterLink to="/" @click='isShow = false' class="mb-5 display-1 fw-bolder">首頁</RouterLink>
+        <RouterLink to="/price" @click='isShow = false' class="display-1 fw-bolder">定價</RouterLink>
       </div>
       <div class="fw-bolder pt-8 border-top">
         <p class="text-start">AI工具王 © 2023</p>
