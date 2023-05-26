@@ -1,7 +1,7 @@
 <script>
 </script>
 <template>
-    <footer class="border-top">
+    <footer class="container border-top">
     <div class="d-md-flex py-20">
         <img class="w-250px mb-10 order-1 ms-auto align-self-md-start" src="https://raw.githubusercontent.com/hexschool/2022-web-layout-training/main/2023web-camp/logo.png" alt="">
         <div class="display-1 fw-bolder"><a class="d-block" href="#">首頁</a><a class="d-block" href="#">定價</a></div>
