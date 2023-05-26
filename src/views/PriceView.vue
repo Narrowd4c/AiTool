@@ -25,7 +25,7 @@ export default {
         <FaqComp class="mb-30 mb-lg-40"></FaqComp>
     </div>
 </template>
-<style>
+<style lang="scss">
 
 </style>
 
