@@ -237,9 +237,6 @@ export default {
 .z-index-1 {
   z-index: 1;
 }
-.gap-y-6 {
-  gap: 1.5rem 0px;
-}
 
 a {
   & .material-symbols-outlined {

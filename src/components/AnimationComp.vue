@@ -1,5 +1,5 @@
 <template>
-  <ul>
+  <ul class="d-flex">
       <li>
         <img  class="delay1" src="https://raw.githubusercontent.com/hexschool/2022-web-layout-training/main/2023web-camp/deco.png" alt="">
       </li>

@@ -68,6 +68,9 @@ body {
 .cursor-pointer {
   cursor: pointer;
 }
+.gap-y-6 {
+  gap: 1.5rem 0px;
+}
 
 @include media-breakpoint-up(lg) { 
     .mb-lg-40{
