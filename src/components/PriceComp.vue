@@ -51,4 +51,12 @@ export default {
     </li>
   </ul>
 </template>
-<style></style>
+<style lang='scss' scoped>
+.text-gray {
+  color: #919191;
+}
+.list-style {
+  list-style: disc;
+}
+
+</style>

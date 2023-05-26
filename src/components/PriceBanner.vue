@@ -38,9 +38,9 @@ export default {
 }
 </script>
 <template>
-  <div>
+  <div >
     <h2 class="banner-title pt-10 mb-20 fw-bold">用多少，<br />付多少。</h2>
-    <p class="fw-bold fs-1 w-75 w-xl-50 ms-auto mb-50">
+    <p class="fw-bold fs-1 w-75 w-xl-50 ms-auto space">
       我們相信，最靈活的取用機制，才能最大化的幫助你業務的推動。
     </p>
   </div>
@@ -50,13 +50,13 @@ export default {
 .w-xl-50 {
   width: 50% !important;
 }
-.mb-50 {
-  margin-bottom: 12.5rem;
+.space {
+  margin-bottom: calc(12.5rem + 58px);
+  @media screen and (min-width:992px){
+    &{
+      margin-bottom: calc(12.5rem + 38px);
+    }
+  }
 }
-.text-gray {
-  color: #919191;
-}
-.list-style {
-  list-style: disc;
-}
+
 </style>
