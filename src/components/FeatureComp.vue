@@ -28,10 +28,12 @@ export default {
 </script>
 <template>
   <div>
+    <div class='d-flex'>
     <h3 class="fs-5 mb-6">我們的服務</h3>
     <p class="fs-1 fw-bold mb-12">
       我們相信透過 AI 技術，包括圖像識別、自然語言處理和機器翻譯等，讓您更快、更準確地做出決策。
     </p>
+    </div>
     <ul class="row row-gap-3">
       <li class="col-lg-4" v-for="({ imgUrl, title, article }, i) in feature" :key="i + imgUrl">
         <div class="py-10 px-5 px-lg-10 py-lg-20 rounded-3 border h-100">
