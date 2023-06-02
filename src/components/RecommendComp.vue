@@ -7,6 +7,7 @@ import 'swiper/scss/pagination'
 export default {
   data() {
     return {
+      modules: [Pagination],
       recommendList: [
         {
           name: '陳小姐',
@@ -39,11 +40,6 @@ export default {
     Swiper,
     SwiperSlide
   },
-  setup() {
-    return {
-      modules: [Pagination]
-    }
-  }
 }
 </script>
 

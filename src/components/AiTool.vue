@@ -85,9 +85,9 @@ export default {
 </script>
 
 <template>
-  <main class="bg-white text-black rounded-4">
+  <main class="bg-white text-black rounded-40">
     <div class="container py-20">
-      <h2 class="fw-bold display-2 text-center mb-8">這些超酷的應用，都來自 AI工具王</h2>
+      <h2 class="fw-bold fz-8 fz-lg-20 text-center mb-8">這些超酷的應用，都來自 AI工具王</h2>
       <div class="position-relative mb-10">
         <label
           :class="{ 'ai-search-focus': active }"
@@ -174,13 +174,12 @@ export default {
             <div class="aitool-card_img">
               <img :src="imgUrl" :alt="name" />
             </div>
-
             <div class="py-5 px-8 flex-grow-1">
-              <h3 class="mb-3 fw-bold">{{ name }}</h3>
-              <p>{{ description }}</p>
+              <h3 class="mb-3 fw-bold fs-5">{{ name }}</h3>
+              <p class="description">{{ description }}</p>
             </div>
             <div class="hstack py-5 px-8 border-top border-black">
-              <span>AI模型</span>
+              <span class="fw-bolder">AI模型</span>
               <span class="ms-auto">{{ moduleName }}</span>
             </div>
             <div class="hstack py-5 px-8 border-top border-black">
@@ -218,12 +217,23 @@ export default {
   width: 48px;
   height: 48px;
 }
-
+@media screen and (min-width:992px) {
+  .fz-lg-20{
+  font-size: 5rem;
+}
+}
+.description{
+  color: #525252;
+  font-size: 14px;
+}
 .w-144px {
   width: 144px;
 }
 .w-240px {
   width: 240px;
+}
+.rounded-40{
+  border-radius: 10rem;
 }
 
 .bg-gray {

@@ -1,4 +1,12 @@
-<script></script>
+<script>
+export default {
+  methods: {
+    scrollToTop() { 
+      window.scrollTo(0,0)
+    }
+  }
+}
+</script>
 <template>
   <footer class="container border-top">
     <div class="d-md-flex py-20">
@@ -14,7 +22,7 @@
     </div>
     <div class="d-flex flex-wrap border-top py-8">
       <span class="order-md-1 me-25 mb-9 mb-md-0">AI工具王 © 2023</span>
-      <a class="ms-auto text-end order-md-2" href="#app"
+      <a @click='scrollToTop' class="ms-auto text-end order-md-2" href="#"
         >Back to top <span class="align-middle material-symbols-outlined"> arrow_upward </span></a
       >
       <ul class="d-flex social gap-5 order-md-1">
