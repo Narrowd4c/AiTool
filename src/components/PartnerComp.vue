@@ -12,7 +12,7 @@ export default {
         'https://raw.githubusercontent.com/hexschool/2022-web-layout-training/main/2023web-camp/enterprise7.png',
         'https://raw.githubusercontent.com/hexschool/2022-web-layout-training/main/2023web-camp/enterprise8.png',
         'https://raw.githubusercontent.com/hexschool/2022-web-layout-training/main/2023web-camp/enterprise9.png',
-        'https://raw.githubusercontent.com/Narrowd4c/AiTool/main/public/Rectangle22.png',
+        '/public/Rectangle22.png',
         'https://raw.githubusercontent.com/hexschool/2022-web-layout-training/main/2023web-camp/enterprise11.png',
         'https://raw.githubusercontent.com/hexschool/2022-web-layout-training/main/2023web-camp/enterprise12.png'
       ]
@@ -44,8 +44,8 @@ export default {
   height: 50px;
 }
 .partner-list {
-  overflow-x: scroll;
-  mask: linear-gradient(90deg, #000 80%, transparent);
+  overflow-x: auto;
+  mask: linear-gradient(90deg, transparent 2%, #000 10%, #000 70%, transparent);
   -webkit-mask: linear-gradient(90deg, transparent 2%, #000 10%, #000 70%, transparent);
   gap: 0px 1.25rem;
 }

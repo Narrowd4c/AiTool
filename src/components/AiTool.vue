@@ -85,7 +85,7 @@ export default {
 </script>
 
 <template>
-  <div class="bg-white text-black rounded-4">
+  <main class="bg-white text-black rounded-4">
     <div class="container py-20">
       <h2 class="fw-bold display-2 text-center mb-8">這些超酷的應用，都來自 AI工具王</h2>
       <div class="position-relative mb-10">
@@ -208,7 +208,7 @@ export default {
         </li>
       </ul>
     </div>
-  </div>
+  </main>
 </template>
 
 <style lang="scss" scoped>

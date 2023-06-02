@@ -1,8 +1,8 @@
 <template>
-  <div class="text-center py-30 px-20 py-lg-20 mb-10 my-lg-20">
-    <h2 class="display-5 fw-bold">現在就來建立屬於你的服務吧</h2>
-    <a href="#" class="start-btn fs-5 fw-bold rounded-4 btn btn-outline-light mt-8"
-      >開始使用<span class="pt-1 ms-3 align-middle material-symbols-outlined"> north_east </span></a
+  <div class="text-center py-30 px-10 py-lg-20 mb-10 my-lg-20">
+    <h2 class="fz-8 fw-bolder">現在就來建立屬於你的服務吧</h2>
+    <a href="#" class="mx-auto start-btn fs-5 fw-bolder rounded-4 btn btn-outline-light mt-8"
+      >開始使用<span class="ms-3 material-symbols-outlined"> north_east </span></a
     >
   </div>
 </template>
@@ -21,5 +21,8 @@ export default {}
   padding: 1.25rem;
   padding-left: 2.5rem;
   padding-right: 2rem;
+  width: 190px;
+  display: flex;
+  align-items: center;
 }
 </style>
