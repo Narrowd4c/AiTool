@@ -1,4 +1,9 @@
 <script>
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Pagination } from 'swiper'
+import 'swiper/scss'
+import 'swiper/scss/pagination'
+
 export default {
   data() {
     return {
@@ -29,24 +34,46 @@ export default {
         }
       ]
     }
+  },
+  components: {
+    Swiper,
+    SwiperSlide
+  },
+  setup() {
+    return {
+      modules: [Pagination]
+    }
   }
 }
 </script>
 
 <template>
-  <ul class="row flex-nowrap overflow-scroll">
-    <li
+  <swiper
+    :slides-per-view="1"
+    :pagination="{ clickable: true }"
+    :modules="modules"
+    :breakpoints="{
+      '765': {
+        slidesPerView: 2,
+        spaceBetween: 24
+      },
+      '992': {
+        slidesPerView: 3,
+        spaceBetween: 24
+      }
+    }"
+    :space-between="24"
+    @swiper="onSwiper"
+    @slideChange="onSlideChange"
+  >
+    <swiper-slide
       v-for="({ name, avatar, company, recommend }, i) in recommendList"
       :key="i + avatar"
-      class="col-lg-6 col-xl-4"
+      class="h-auto pb-5"
     >
       <div class="p-5 recommend-bg rounded-4 d-flex flex-column h-100">
         <div class="d-flex mb-10 gap-1">
-          <span class="material-symbols-rounded">grade</span>
-          <span class="material-symbols-rounded">grade</span>
-          <span class="material-symbols-rounded">grade</span>
-          <span class="material-symbols-rounded">grade</span>
-          <span class="material-symbols-rounded">grade</span>
+          <span v-for="i in 5" :key="i" class="material-symbols-outlined">grade</span>
         </div>
         <article class="mb-10 lh-base flex-grow-1">
           {{ recommend }}
@@ -59,11 +86,31 @@ export default {
           </div>
         </div>
       </div>
-    </li>
-  </ul>
+    </swiper-slide>
+  </swiper>
 </template>
-<style>
+<style lang="scss">
+.swiper {
+  --swiper-pagination-bullet-inactive-color: rgb(255, 255, 255);
+  --swiper-theme-color: rgb(255, 255, 255);
+  --swiper-pagination-color: rgb(255, 255, 255);
+  --swiper-pagination-bullet-size: 8px;
+}
+.swiper-pagination.swiper-pagination-bullets {
+  bottom: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.swiper-pagination-bullet-active {
+  width: 12px;
+  height: 12px;
+}
 .recommend-bg {
   background: rgba(255, 255, 255, 0.08);
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 1, 'wght' 200, 'GRAD' 0, 'opsz' 48;
 }
 </style>
