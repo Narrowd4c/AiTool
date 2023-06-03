@@ -1,65 +1,21 @@
 <script>
 export default {
+  async mounted() {
+    //https://2023-engineer-camp.zeabur.app/api/v1/works
+    let response = await fetch('https://2023-engineer-camp.zeabur.app/api/v1/works')
+    let data = await response.json()
+    data = data['ai_works'].data
+    console.log(data)
+    this.aiToolList = data
+  },
   data() {
     return {
       active: false,
-      color: 'transparent',
       text: '',
       filterBtn: false,
       order: '由新到舊',
       orderBtn: false,
-      aiToolList: [
-        {
-          name: 'Chatbot Builder',
-          description: '建立智能化的聊天機器人，解答常見問題、提供客戶支援、收集反饋等。',
-          type: '聊天',
-          moduleName: '卡卡',
-          imgUrl:
-            'https://raw.githubusercontent.com/hexschool/2022-web-layout-training/main/2023web-camp/tool1.png'
-        },
-        {
-          name: 'Image Recognition Platform',
-          description: '專業的圖像識別平台，識別圖像、分類、標記等。',
-          type: '影像辨識',
-          moduleName: '杰杰',
-          imgUrl:
-            'https://raw.githubusercontent.com/hexschool/2022-web-layout-training/main/2023web-camp/tool2.png'
-        },
-        {
-          name: 'Language Translation API',
-          description: '專業的語言翻譯 API，實現文本翻譯功能，支援多種格式的文本。',
-          type: '翻譯',
-          moduleName: '琪琪',
-          imgUrl:
-            'https://raw.githubusercontent.com/hexschool/2022-web-layout-training/main/2023web-camp/tool3.png'
-        },
-        {
-          name: 'Sentiment Analysis API',
-          description:
-            '自動識別文本中的情感傾向，包括正向、負向和中性等。適用於情感分析、社交媒體監控、市場調查等。',
-          type: '行銷',
-          moduleName: '昊昊',
-          imgUrl:
-            'https://raw.githubusercontent.com/hexschool/2022-web-layout-training/main/2023web-camp/tool4.png'
-        },
-        {
-          name: 'Fraud Detection Platform',
-          description: '預防詐騙活動，適用於銀行、金融、電商等。',
-          type: '客服',
-          moduleName: '卡卡',
-          imgUrl:
-            'https://raw.githubusercontent.com/hexschool/2022-web-layout-training/main/2023web-camp/tool5.png'
-        },
-        {
-          name: 'Voice Assistant SDK',
-          description:
-            '通過語音控制應用程式、設備，實現多種功能，例如播放音樂、查詢天氣、發送信息等。',
-          type: '生產力',
-          moduleName: '杰杰',
-          imgUrl:
-            'https://raw.githubusercontent.com/hexschool/2022-web-layout-training/main/2023web-camp/tool6.png'
-        }
-      ],
+      aiToolList: [],
       aiToolType: ['全部', '聊天', '影像辨識', '翻譯', '行銷', '客服', '生產力']
     }
   },
@@ -79,6 +35,14 @@ export default {
       let result = [...this.aiToolType]
       result[0] = '所有類型'
       return result
+    },
+    orderList() { 
+      if (this.order == '由新到舊') {
+        return this.aiToolList.toSorted((a, b) => b['create_time'] - a['create_time'])
+      } else if (this.order == '由舊到新') { 
+        return this.aiToolList.toSorted((a, b) => a['create_time'] - b['create_time'])
+      }
+      return this.aiToolList
     }
   }
 }
@@ -108,7 +72,7 @@ export default {
       </div>
       <div class="d-flex flex-wrap justify-content-lg-between align-items-center mb-12">
         <div class="position-relative">
-          <button @click="filterBtn = !filterBtn" type="button" class="btn-filter lh-sm">
+          <button type="button" @click="filterBtn = !filterBtn" class="btn-filter lh-sm">
             篩選<span class="align-text-bottom ms-3 text-black material-symbols-rounded">
               tune
             </span>
@@ -136,7 +100,7 @@ export default {
           </div>
         </div>
         <div class="ms-auto m-lg-0 order-lg-1 position-relative">
-          <button @click="orderBtn = !orderBtn" type="button" class="btn-filter">
+          <button type='button' @click="orderBtn = !orderBtn" class="btn-filter">
             {{ order
             }}<span class="align-text-bottom ms-3 text-black material-symbols-rounded">
               expand_more
@@ -158,7 +122,7 @@ export default {
         </div>
         <ul class="mt-4 mt-lg-0 d-flex gap-2 overflow-auto">
           <li class="flex-shrink-0" v-for="value in aiToolType" :key="value">
-            <button class="btn-types bg-gray-hover">
+            <button type='button' class="btn-types bg-gray-hover">
               {{ value }}
             </button>
           </li>
@@ -167,24 +131,24 @@ export default {
       <ul class="row gap-y-6 mb-12">
         <li
           class="col-lg-6 col-xl-4"
-          v-for="({ name, description, type, moduleName, imgUrl }, i) in aiToolList"
-          :key="i"
+          v-for="{ link, imageUrl, model, type, title, discordId, description, id } in orderList"
+          :key="id"
         >
           <div class="d-flex flex-column aitool-card rounded-4 border h-100">
             <div class="aitool-card_img">
-              <img :src="imgUrl" :alt="name" />
+              <img :src="imageUrl" :alt="name" />
             </div>
             <div class="py-5 px-8 flex-grow-1">
-              <h3 class="mb-3 fw-bold fs-5">{{ name }}</h3>
+              <h3 class="mb-3 fw-bold fs-5">{{ title }}</h3>
               <p class="description">{{ description }}</p>
             </div>
             <div class="hstack py-5 px-8 border-top border-black">
-              <span class="fw-bolder">AI模型</span>
-              <span class="ms-auto">{{ moduleName }}</span>
+              <span class="fw-bolder">{{ model }}</span>
+              <span class="ms-auto">{{ discordId }}</span>
             </div>
             <div class="hstack py-5 px-8 border-top border-black">
               <span>#{{ type }}</span>
-              <a href="#" class="ms-auto"
+              <a :href="link" class="ms-auto"
                 ><span class="text-black material-symbols-rounded icon-share"> share </span></a
               >
             </div>
@@ -217,12 +181,12 @@ export default {
   width: 48px;
   height: 48px;
 }
-@media screen and (min-width:992px) {
-  .fz-lg-20{
-  font-size: 5rem;
+@media screen and (min-width: 992px) {
+  .fz-lg-20 {
+    font-size: 5rem;
+  }
 }
-}
-.description{
+.description {
   color: #525252;
   font-size: 14px;
 }
@@ -232,7 +196,7 @@ export default {
 .w-240px {
   width: 240px;
 }
-.rounded-40{
+.rounded-40 {
   border-radius: 10rem;
 }
 
