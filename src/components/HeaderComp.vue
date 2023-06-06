@@ -41,7 +41,7 @@ export default {
           >定價</RouterLink
         >
       </div>
-      <div class="fw-bolder pt-8 border-top">
+      <div class="container fw-bolder pt-8 border-top">
         <p class="text-start">AI工具王 © 2023</p>
         <ul class="d-flex mt-9 gap-5 mb-5">
           <li><a href="#">Facebook</a></li>

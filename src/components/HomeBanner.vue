@@ -10,17 +10,20 @@ export default {
 }
 </script>
 <template>
-  <div>
+  <div class="vh-80 d-flex flex-column">
     <h2 class="banner-title pt-24 fw-bold">
       透過<br />AI工具王的<br />強大模型<br />讓您的業務更聰明
     </h2>
-    <a href="#" class="start-btn fs-5 rounded-3 fw-bold btn btn-outline-light mt-10 mb-lg-25 mb-45"
+    <a href="#" class="align-self-start start-btn fs-5 rounded-4 fw-bold btn btn-outline-light mt-10"
       >開始使用</a
     >
+    <Animation class="mt-auto d-flex justify-content-md-end"></Animation>
   </div>
-  <Animation class="d-flex justify-content-md-end mb-30 mb-lg-40"></Animation>
 </template>
 <style lang="scss" scoped>
+.vh-80{
+  height: calc(100dvh - 80px);
+}
 .pt-24 {
   padding-top: 6rem;
 }

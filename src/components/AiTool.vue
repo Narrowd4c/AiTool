@@ -3,10 +3,10 @@ export default {
   async mounted() {
     //https://2023-engineer-camp.zeabur.app/api/v1/works
     let response = await fetch('https://2023-engineer-camp.zeabur.app/api/v1/works')
-    let data = await response.json()
-    data = data['ai_works'].data
-    console.log(data)
-    this.aiToolList = data
+    response = await response.json()
+    console.log(response['ai_works'].page['total_pages'])
+    this.aiToolList = response['ai_works'].data
+    this.totalPage = response['ai_works'].page['total_pages']
   },
   data() {
     return {
@@ -16,7 +16,19 @@ export default {
       order: '由新到舊',
       orderBtn: false,
       aiToolList: [],
-      aiToolType: ['全部', '聊天', '影像辨識', '翻譯', '行銷', '客服', '生產力']
+      totalPage: 0,
+      currentPage: 1,
+      moduleList: ['所有類型', '卡卡', '杰杰', '琪琪', '昊昊'],
+      aiToolType: [
+        '所有類型',
+        '問答服務',
+        '虛擬客服',
+        '生活應用',
+        '程式知識',
+        '翻譯助手',
+        '行銷文案'
+      ],
+      selectToolType: '所有類型'
     }
   },
   methods: {
@@ -24,25 +36,30 @@ export default {
       if (this.text.length === 0) {
         this.active = !this.active
       }
+    },
+    async sortAITool(sort, page, type) {
+      if (type == '所有類型') { 
+        type = ''
+      }
+      let response = await fetch(
+        `https://2023-engineer-camp.zeabur.app/api/v1/works?page=${page}&sort=${sort}&type=${type}`
+      )
+      response = await response.json()
+      let result = response['ai_works'].data
+      this.totalPage = response['ai_works'].page['total_pages']
+      this.aiToolList = result
     }
   },
   computed: {
-    moduleList() {
-      let types = new Set(this.aiToolList.map((x) => x.moduleName))
-      return ['所有類型', ...Array.from(types)]
-    },
-    typeList() {
-      let result = [...this.aiToolType]
-      result[0] = '所有類型'
-      return result
-    },
-    orderList() { 
+    orderList() {
       if (this.order == '由新到舊') {
+        this.sortAITool(0, this.currentPage, this.selectToolType)
         return this.aiToolList.toSorted((a, b) => b['create_time'] - a['create_time'])
-      } else if (this.order == '由舊到新') { 
+      } else if(this.order == '由舊到新'){
+        this.sortAITool(1, this.currentPage, this.selectToolType)
         return this.aiToolList.toSorted((a, b) => a['create_time'] - b['create_time'])
       }
-      return this.aiToolList
+      return []
     }
   }
 }
@@ -85,22 +102,27 @@ export default {
             <ul class="mb-4">
               <li
                 class="bg-gray-hover py-1 cursor-pointer"
-                v-for="(module, i) in moduleList"
-                :key="i + module"
+                v-for="module in moduleList"
+                :key="module"
               >
                 <p class="px-10">{{ module }}</p>
               </li>
             </ul>
             <ul class="border-top pt-4">
               <h4 class="px-10 fs-6 text-muted mb-2">類型</h4>
-              <li class="bg-gray-hover py-1 cursor-pointer" v-for="v in typeList" :key="v">
-                <p class="px-10">{{ v }}</p>
+              <li @click="selectToolType = type" class="bg-gray-hover py-1 cursor-pointer" v-for="type in aiToolType" :key="type">
+                <div class="hstack align-items-center px-10">
+                <a  class="text-black">{{ type }}</a>
+                <span v-show="selectToolType == type" class="text-sm ms-auto material-symbols-outlined">
+                  done
+                </span>
+                </div>
               </li>
             </ul>
           </div>
         </div>
         <div class="ms-auto m-lg-0 order-lg-1 position-relative">
-          <button type='button' @click="orderBtn = !orderBtn" class="btn-filter">
+          <button type="button" @click="orderBtn = !orderBtn" class="btn-filter">
             {{ order
             }}<span class="align-text-bottom ms-3 text-black material-symbols-rounded">
               expand_more
@@ -122,7 +144,7 @@ export default {
         </div>
         <ul class="mt-4 mt-lg-0 d-flex gap-2 overflow-auto">
           <li class="flex-shrink-0" v-for="value in aiToolType" :key="value">
-            <button type='button' class="btn-types bg-gray-hover">
+            <button type="button" class="btn-types bg-gray-hover">
               {{ value }}
             </button>
           </li>
@@ -136,7 +158,7 @@ export default {
         >
           <div class="d-flex flex-column aitool-card rounded-4 border h-100">
             <div class="aitool-card_img">
-              <img :src="imageUrl" :alt="name" />
+              <img :src="imageUrl" :alt="title" />
             </div>
             <div class="py-5 px-8 flex-grow-1">
               <h3 class="mb-3 fw-bold fs-5">{{ title }}</h3>
@@ -156,13 +178,13 @@ export default {
         </li>
       </ul>
       <ul class="d-flex justify-content-end gap-1">
-        <li class="flex-shrink-0 rounded-4">
-          <a class="hstack justify-content-center rounded-4 square-12 bg-black" href="#">1</a>
-        </li>
-        <li class="flex-shrink-0 rounded-4" v-for="i in 4" :key="i">
-          <a class="hstack justify-content-center rounded-4 square-12 text-black" href="#">{{
-            i + 1
-          }}</a>
+        <li class="flex-shrink-0 rounded-4" v-for="i in totalPage" :key="i">
+          <a
+            @click.prevent="currentPage = i"
+            :class="{ 'bg-black': currentPage == i, 'text-white': currentPage == i }"
+            class="cursor-pointer hstack justify-content-center rounded-4 square-12 text-black"
+            >{{ i }}</a
+          >
         </li>
         <li class="flex-shrink-0 rounded-4">
           <a class="hstack justify-content-center rounded-4 square-12" href="#"
@@ -186,6 +208,9 @@ export default {
     font-size: 5rem;
   }
 }
+.text-sm{
+  font-size:1rem;
+}
 .description {
   color: #525252;
   font-size: 14px;
@@ -199,7 +224,6 @@ export default {
 .rounded-40 {
   border-radius: 10rem;
 }
-
 .bg-gray {
   background: #f2f2f2;
 }
