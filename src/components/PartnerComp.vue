@@ -30,8 +30,8 @@ export default {
         </li>
       </ul>
     </div>
-    <div class="overflow-hidden h-40px mb-5">
-      <ul class="d-flex justify-content-xl-center partner-list pb-8 ps-2 pe-8">
+    <div class="overflow-hidden h-40px mb-5 ">
+      <ul class="d-flex justify-content-xl-center partner-list pb-8 ps-2 pe-8 position-relative end-10">
         <li class="pt-1" v-for="(img, index) in partnerList.slice(6, 12)" :key="index + img">
           <img class="partner-logo" :src="img" :alt="`partner${index}`" />
         </li>
@@ -51,5 +51,8 @@ export default {
 }
 .partner-logo {
   max-width: 160px;
+}
+.end-10{
+  right:2.5rem;
 }
 </style>
