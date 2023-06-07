@@ -12,7 +12,7 @@ export default {
         'https://raw.githubusercontent.com/hexschool/2022-web-layout-training/main/2023web-camp/enterprise7.png',
         'https://raw.githubusercontent.com/hexschool/2022-web-layout-training/main/2023web-camp/enterprise8.png',
         'https://raw.githubusercontent.com/hexschool/2022-web-layout-training/main/2023web-camp/enterprise9.png',
-        '/public/Rectangle22.png',
+        'https://raw.githubusercontent.com/Narrowd4c/AiTool/main/public/Rectangle22.png',
         'https://raw.githubusercontent.com/hexschool/2022-web-layout-training/main/2023web-camp/enterprise11.png',
         'https://raw.githubusercontent.com/hexschool/2022-web-layout-training/main/2023web-camp/enterprise12.png'
       ]
