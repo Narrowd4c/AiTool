@@ -38,13 +38,14 @@ export default {
 }
 </script>
 <template>
-  <div >
+  <div class="vh-80 d-flex flex-column">
     <h2 class="banner-title pt-10 mb-20 fw-bold">用多少，<br />付多少。</h2>
     <p class="fw-bold fs-1 w-75 w-xl-50 ms-auto space">
       我們相信，最靈活的取用機制，才能最大化的幫助你業務的推動。
     </p>
+    <Animation class="mt-auto"></Animation>
   </div>
-  <Animation class="mb-30 mb-lg-40"></Animation>
+  
 </template>
 <style lang="scss" scoped>
 .w-xl-50 {

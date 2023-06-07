@@ -11,7 +11,7 @@ export default {
   data() {
     return {
       active: false,
-      text: '',
+      searchText: '',
       filterBtn: false,
       order: '由新到舊',
       orderBtn: false,
@@ -31,37 +31,82 @@ export default {
       selectToolType: '所有類型'
     }
   },
-  methods: {
-    focus() {
-      if (this.text.length === 0) {
-        this.active = !this.active
-      }
+  watch: {
+    order() {
+      this.currentPage = 1
+      this.orderList()
     },
-    async sortAITool(sort, page, type) {
-      if (type == '所有類型') { 
-        type = ''
-      }
-      let response = await fetch(
-        `https://2023-engineer-camp.zeabur.app/api/v1/works?page=${page}&sort=${sort}&type=${type}`
-      )
-      response = await response.json()
-      let result = response['ai_works'].data
-      this.totalPage = response['ai_works'].page['total_pages']
-      this.aiToolList = result
-    }
-  },
-  computed: {
-    orderList() {
+    selectToolType() {
+      this.currentPage = 1
+      this.orderList()
+    },
+    currentPage() {
+      this.orderList()
+    },
+    searchText() {
       if (this.order == '由新到舊') {
-        this.sortAITool(0, this.currentPage, this.selectToolType)
+        this.searchFunc(0, this.currentPage, this.selectToolType, this.searchText)
+        console.log(this.searchText)
         return this.aiToolList.toSorted((a, b) => b['create_time'] - a['create_time'])
-      } else if(this.order == '由舊到新'){
-        this.sortAITool(1, this.currentPage, this.selectToolType)
+      } else if (this.order == '由舊到新') {
+        this.searchFunc(1, this.currentPage, this.selectToolType, this.searchText)
+        console.log(this.searchText)
         return this.aiToolList.toSorted((a, b) => a['create_time'] - b['create_time'])
       }
       return []
     }
-  }
+  },
+  methods: {
+    focus() {
+      if (this.searchText.length === 0) {
+        this.active = !this.active
+      }
+    },
+    async sortAITool(sort, page, type) {
+      if (type == '所有類型') {
+        type = ''
+      }
+      try {
+        let response = await fetch(
+          `https://2023-engineer-camp.zeabur.app/api/v1/works?page=${page}&sort=${sort}&type=${type}`
+        )
+        response = await response.json()
+        let result = response['ai_works'].data
+        this.totalPage = response['ai_works'].page['total_pages']
+        this.aiToolList = result
+      } catch {
+        console.log('error')
+        return null
+      }
+    },
+    orderList() {
+      if (this.order == '由新到舊') {
+        this.sortAITool(0, this.currentPage, this.selectToolType)
+        return this.aiToolList.toSorted((a, b) => b['create_time'] - a['create_time'])
+      } else if (this.order == '由舊到新') {
+        this.sortAITool(1, this.currentPage, this.selectToolType)
+        return this.aiToolList.toSorted((a, b) => a['create_time'] - b['create_time'])
+      }
+      return []
+    },
+    async searchFunc(sort, page, type, search) {
+      if (type == '所有類型') {
+        type = ''
+      }
+      try {
+        let response = await fetch(
+          `https://2023-engineer-camp.zeabur.app/api/v1/works?page=${page}&sort=${sort}&type=${type}&search=${search}`
+        )
+        response = await response.json()
+        let result = response['ai_works'].data
+        this.totalPage = response['ai_works'].page['total_pages']
+        this.aiToolList = result
+      } catch {
+        console.log('null')
+      }
+    }
+  },
+  computed: {}
 }
 </script>
 
@@ -82,12 +127,12 @@ export default {
           id="search"
           @focus="focus"
           @blur="focus"
-          v-model="text"
+          v-model.lazy="searchText"
           class="border-0 bg-gray w-100 rounded-4 ps-10 py-5"
           type="text"
         />
       </div>
-      <div class="d-flex flex-wrap justify-content-lg-between align-items-center mb-12">
+      <div class="d-flex flex-wrap align-items-center mb-12">
         <div class="position-relative">
           <button type="button" @click="filterBtn = !filterBtn" class="btn-filter lh-sm">
             篩選<span class="align-text-bottom ms-3 text-black material-symbols-rounded">
@@ -110,18 +155,26 @@ export default {
             </ul>
             <ul class="border-top pt-4">
               <h4 class="px-10 fs-6 text-muted mb-2">類型</h4>
-              <li @click="selectToolType = type" class="bg-gray-hover py-1 cursor-pointer" v-for="type in aiToolType" :key="type">
+              <li
+                @click="selectToolType = type"
+                class="bg-gray-hover py-1 cursor-pointer"
+                v-for="type in aiToolType"
+                :key="type"
+              >
                 <div class="hstack align-items-center px-10">
-                <a  class="text-black">{{ type }}</a>
-                <span v-show="selectToolType == type" class="text-sm ms-auto material-symbols-outlined">
-                  done
-                </span>
+                  <a class="text-black">{{ type }}</a>
+                  <span
+                    v-show="selectToolType == type"
+                    class="text-sm ms-auto material-symbols-outlined"
+                  >
+                    done
+                  </span>
                 </div>
               </li>
             </ul>
           </div>
         </div>
-        <div class="ms-auto m-lg-0 order-lg-1 position-relative">
+        <div class="ms-auto m-xl-0 order-xl-1 position-relative">
           <button type="button" @click="orderBtn = !orderBtn" class="btn-filter">
             {{ order
             }}<span class="align-text-bottom ms-3 text-black material-symbols-rounded">
@@ -142,9 +195,9 @@ export default {
             </ul>
           </div>
         </div>
-        <ul class="mt-4 mt-lg-0 d-flex gap-2 overflow-auto">
-          <li class="flex-shrink-0" v-for="value in aiToolType" :key="value">
-            <button type="button" class="btn-types bg-gray-hover">
+        <ul class="mx-auto mt-4 mt-xl-0 d-flex gap-2 overflow-auto scrollbar-hide">
+          <li @click='selectToolType = value' class="flex-shrink-0" v-for="value in aiToolType" :key="value">
+            <button type="button" :class="{'bg-gray': selectToolType == value}" class="btn-types bg-gray-hover">
               {{ value }}
             </button>
           </li>
@@ -153,7 +206,7 @@ export default {
       <ul class="row gap-y-6 mb-12">
         <li
           class="col-lg-6 col-xl-4"
-          v-for="{ link, imageUrl, model, type, title, discordId, description, id } in orderList"
+          v-for="{ link, imageUrl, model, type, title, discordId, description, id } in aiToolList"
           :key="id"
         >
           <div class="d-flex flex-column aitool-card rounded-4 border h-100">
@@ -208,8 +261,8 @@ export default {
     font-size: 5rem;
   }
 }
-.text-sm{
-  font-size:1rem;
+.text-sm {
+  font-size: 1rem;
 }
 .description {
   color: #525252;
@@ -224,12 +277,7 @@ export default {
 .rounded-40 {
   border-radius: 10rem;
 }
-.bg-gray {
-  background: #f2f2f2;
-}
-.bg-gray-hover:hover {
-  background: #f2f2f2;
-}
+
 
 .ai-search {
   pointer-events: none;
@@ -275,5 +323,15 @@ export default {
   border: 0;
   border-radius: 16px;
   padding: 8px 16px;
+}
+.bg-gray {
+  background: #f2f2f2;
+}
+.bg-gray-hover:hover {
+  background: #f2f2f2;
+}
+
+.scrollbar-hide::-webkit-scrollbar{
+  display: none;
 }
 </style>

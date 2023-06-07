@@ -21,9 +21,7 @@ export default {
   </div>
 </template>
 <style lang="scss" scoped>
-.vh-80{
-  height: calc(100dvh - 80px);
-}
+
 .pt-24 {
   padding-top: 6rem;
 }

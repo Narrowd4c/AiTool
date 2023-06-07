@@ -29,7 +29,7 @@ export default {
 }
 </script>
 <template>
-  <h3 class="fz-8 mb-20 fw-bold">定價</h3>
+  <h3 class="mt-30 mt-lg-40 fz-8 mb-20 fw-bold">定價</h3>
   <ul class="row gap-y-6 mb-30">
     <li v-for="({ name, description, price }, i) in priceList" :key="i + name" class="col-md-6">
       <div class="border rounded-4 h-100 vstack">
